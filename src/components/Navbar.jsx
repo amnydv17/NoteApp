@@ -6,7 +6,7 @@ const Navbar = () => {
     <div className="w-full h-[80px] flex items-center py-2 bg-orange-600 border-b-2 border-black">
       {/* Logo Section */}
       <div className="text-white font-bold text-3xl px-8">
-        MyNote
+        MYNOTES
       </div>
 
       {/* Navigation Links Section */}
