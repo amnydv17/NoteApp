@@ -1,9 +1,10 @@
-import React, {useEffect, useRef ,useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Calendar, Copy, Eye, PencilLine, Trash2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromNotes } from "../redux/noteSlice";
 import toast from "react-hot-toast";
 import { FormatDate } from "../utlis/formatDate";
+import { ShareIcon } from "lucide-react";
 // import { FaFacebookF, FaTwitter, FaLinkedinIn, FaWhatsapp } from "react-icons/fa"; // Import social media icons
 
 const Note = () => {
@@ -11,10 +12,6 @@ const Note = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
 
-
-  const [showShareOptions, setShowShareOptions] = useState(false);
-  const modalRef = useRef();
-  
   // Filter notes based on search term (by title or content)
   const filterData = notes.filter((note) =>
     note.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -24,18 +21,23 @@ const Note = () => {
     dispatch(removeFromNotes(noteId));
   }
 
-  // function handleShareClick() {
-  //   console.log("Share button clicked"); // Debugging
-  //   setShowShareOptions(true); // Show share modal
-  // }
-
-  // function closeShareModal() {
-  //   setShowShareOptions(false); // Close share modal
-  // }
-
+  const handleShareNote = (note) => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: note.title,
+          text: note.content,
+          url: window.location.href,
+        })
+        .then(() => console.log("Shared successfully"))
+        .catch((error) => console.error("Error sharing:", error));
+    } else {
+      console.log("Web Share API is not supported");
+    }
+  };
 
   return (
-    <div className="w-full h-full py-10 max-w-[1200px] mx-auto px-5 lg:px-0">
+    <div className="w-full h-dvh py-10 max-w-[1200px] mx-auto px-5 lg:px-0">
       <div className="flex flex-col gap-y-3">
         {/* Search */}
         <div className="w-full flex gap-3 px-4 py-2  rounded-[0.3rem] border border-[rgba(128,121,121,0.3)]  mt-6">
@@ -82,6 +84,14 @@ const Note = () => {
                           />
                         </a>
                       </button>
+
+                      <button
+                        className="p-2 rounded-[0.2rem] bg-white border border-[#c7c7c7]  hover:bg-transparent group hover:border-blue-500"
+                        onClick={() => handleShareNote(note)}
+                      >
+                        <ShareIcon size={20} />
+                      </button>
+
                       <button
                         className="p-2 rounded-[0.2rem] bg-white border border-[#c7c7c7]  hover:bg-transparent group hover:border-pink-500"
                         onClick={() => handleDelete(note?._id)}
@@ -123,7 +133,7 @@ const Note = () => {
               ))
             ) : (
               <div className="text-2xl text-center w-full text-chileanFire-500">
-                No Data Found
+                Create New Notes...
               </div>
             )}
           </div>

@@ -61,7 +61,7 @@ const Home = () => {
 
 
   return (
-    <div className="w-full h-full py-10 max-w-[1200px] mx-auto px-5 lg:px-0">
+    <div className="w-full h-dvh py-10 max-w-[1200px] mx-auto px-5 lg:px-0">
       <div className="flex flex-col gap-y-5 items-start">
         <div className="w-full flex flex-row gap-x-4 justify-between items-center">
           <input
@@ -75,7 +75,7 @@ const Home = () => {
             } text-black border border-input rounded-md p-2`}
           />
           <button
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-3 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700"
             onClick={createNote}
           >
             {noteId ? "Update Note" : "Create My Note"}
@@ -128,11 +128,11 @@ const Home = () => {
             value={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder="Write Your Content Here...."
-            className="w-full p-3  focus-visible:ring-0"
+            className="w-full p-3 focus-visible:ring-0"
             style={{
               caretColor: "#000",
             }}
-            rows={20}
+            rows={17}
           />
         </div>
       </div>
